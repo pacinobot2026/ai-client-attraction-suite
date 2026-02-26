@@ -399,7 +399,7 @@ export default function Home() {
               poster="/video-poster.jpg"
               preload="metadata"
             >
-              <source src="VIDEO_URL_HERE" type="video/mp4" />
+              <source src="https://files.catbox.moe/24koc0.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
           </div>
