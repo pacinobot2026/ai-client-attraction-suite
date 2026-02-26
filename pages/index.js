@@ -1,6 +1,25 @@
 import Head from 'next/head';
 
 export default function Home() {
+  const handleCheckout = async (plan) => {
+    try {
+      const res = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ plan }),
+      });
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        alert('Error creating checkout. Please try again.');
+      }
+    } catch (error) {
+      console.error(error);
+      alert('Error creating checkout. Please try again.');
+    }
+  };
+
   return (
     <>
       <Head>
@@ -600,17 +619,17 @@ export default function Home() {
             <div className="price">$997</div>
             <div className="price-note">One-time payment • Lifetime access</div>
             
-            <a href="STRIPE_CHECKOUT_URL" className="cta-button">
+            <button onClick={() => handleCheckout('full')} className="cta-button">
               Get Instant Access →
-            </a>
+            </button>
 
             <div className="payment-plan">
               Or split into 3 payments of $366
             </div>
             
-            <a href="STRIPE_PAYMENT_PLAN_URL" className="cta-secondary">
+            <button onClick={() => handleCheckout('payment-plan')} className="cta-secondary">
               Choose Payment Plan
-            </a>
+            </button>
           </div>
 
           <div className="guarantee">
@@ -633,12 +652,12 @@ export default function Home() {
           </p>
 
           <div style={{maxWidth: '400px', margin: '0 auto'}}>
-            <a href="STRIPE_CHECKOUT_URL" className="cta-button">
+            <button onClick={() => handleCheckout('full')} className="cta-button">
               Get Instant Access — $997
-            </a>
-            <a href="STRIPE_PAYMENT_PLAN_URL" className="cta-secondary">
+            </button>
+            <button onClick={() => handleCheckout('payment-plan')} className="cta-secondary">
               Or 3 Payments of $366
-            </a>
+            </button>
           </div>
         </div>
 
